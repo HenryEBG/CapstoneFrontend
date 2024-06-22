@@ -3,6 +3,8 @@ import './App.css'
 import {BrowserRouter,Navigate,Routes,Route,Link} from "react-router-dom"
 import {Login} from "./Routes/Login.jsx"
 import {Dashboard} from "./Routes/Dashboard.jsx"
+import { Footer } from './components/Footer.jsx';
+import { Header } from './components/Header.jsx';
 function App() {
   // const [count, setCount] = useState(0)
   const userLogin=true;
@@ -11,11 +13,12 @@ function App() {
       {/* adding de BrowserRouter component to involve all the routes */}
       <BrowserRouter>
         {/* includ the  Routes router to manage like a switch between the routes*/}
+        <Header></Header>
         <Routes>
           {/* defining the routes (just the principals now) */}
           {/* tester variable */}
           
-
+          
           <Route path='/login' element={<Login/>} />
           <Route path='/' element={<Dashboard/>} />
           <Route path='/users' element={<Dashboard/>}/>
@@ -42,6 +45,7 @@ function App() {
           <Route path='*' element={<Login/>} />
 
         </Routes>
+        <Footer></Footer>
       </BrowserRouter>
     </>
   )
