@@ -18,6 +18,7 @@ export const Navbar= () => {
     return (
     <>
       <NavContainer>
+        <img className='logo' src="/KRMLogo.jpg" alt="KRM logo" />
         <h2>Refugee<span>Connect</span></h2>
         <div className={`links ${clicked ? 'active' : ''}`}>
           <>
