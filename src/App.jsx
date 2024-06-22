@@ -1,33 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// import { useState } from 'react'
 import './App.css'
-
+import {BrowserRouter,Navigate,Routes,Route,Link} from "react-router-dom"
+import {Login} from "./Routes/Login.jsx"
+import {Dashboard} from "./Routes/Dashboard.jsx"
 function App() {
-  const [count, setCount] = useState(0)
-
+  // const [count, setCount] = useState(0)
+  const userLogin=true;
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {/* adding de BrowserRouter component to involve all the routes */}
+      <BrowserRouter>
+        {/* includ the  Routes router to manage like a switch between the routes*/}
+        <Routes>
+          {/* defining the routes (just the principals now) */}
+          {/* tester variable */}
+          
+
+          <Route path='/login' element={<Login/>} />
+          <Route path='/' element={<Dashboard/>} />
+          <Route path='/users' element={<Dashboard/>}/>
+          <Route path='/users/add' element={<Dashboard/>} />
+          <Route path='/users/modify' element={<Dashboard/>} />
+          <Route path='/usertypes' element={<Dashboard/>}/>
+          <Route path='/usertypes/add'element={<Dashboard/>}/>
+          <Route path='/usertypes/modify' element={<Dashboard/>}/>
+
+          {/* for now i think delete doesn't need a page */}
+          <Route path='/places' element={<Dashboard/>}/>
+          <Route path='/places/add' element={<Dashboard/>}/>
+          <Route path='/places/modify' element={<Dashboard/>}/>
+          {/* for now i think delete  doesn't need a page */}
+          <Route path='/placetypes' element={<Dashboard/>}/>
+          <Route path='/placetypes/add' element={<Dashboard/>}/>
+          <Route path='/placetypes/modify'element={<Dashboard/>} />
+          {/* for now i think delete doesn't need a page */}
+
+          <Route path='/places/:id' element={<Dashboard/>}/>
+          <Route path='/friends'element={<Dashboard/>} />
+          <Route path='/friends/:id' element={<Dashboard/>}/>
+          {/* if the route it is not defined it redirect the user to the login page */}
+          <Route path='*' element={<Login/>} />
+
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
