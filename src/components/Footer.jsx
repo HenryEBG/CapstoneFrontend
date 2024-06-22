@@ -1,3 +1,5 @@
 export const Footer=() => {
-  return (<div className="footerApp">this is the footer</div>)
+  return (    <footer className="footerApp">
+    <div className="container"><p>Copyright &copy; Henry Berganza</p></div>
+  </footer>)
 }
