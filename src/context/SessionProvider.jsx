@@ -11,7 +11,7 @@ const useSessionContext = () => {
 
 //create the initial state of the context hook
 const initialState = {
-  userLogin: false,//flag that let me know if the user is login or not, maybe could be substitute with localstorage
+  userLogin: true,//flag that let me know if the user is login or not, maybe could be substitute with localstorage
   username: "", //to save the username in the entire app
   name: "",// if it is necessary to print the name of the user in the forms or documents
   places: [],//array to save all the places the user has mark with favorites to make a filter

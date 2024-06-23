@@ -5,9 +5,11 @@ import {Login} from "./Routes/Login.jsx"
 import {Dashboard} from "./Routes/Dashboard.jsx"
 import { Footer } from './components/Footer.jsx';
 import { Header } from './components/Header.jsx';
+import { Users } from './Routes/Users.jsx';
+
 function App() {
   // const [count, setCount] = useState(0)
-  const userLogin=true;
+  const userLogin=false;
   return (
     <>
       {/* adding de BrowserRouter component to involve all the routes */}
@@ -21,7 +23,7 @@ function App() {
           
           <Route path='/login' element={<Login/>} />
           <Route path='/' element={<Dashboard/>} />
-          <Route path='/users' element={<Dashboard/>}/>
+          <Route path='/users' element={<Users/>}/>
           <Route path='/users/add' element={<Dashboard/>} />
           <Route path='/users/modify' element={<Dashboard/>} />
           <Route path='/usertypes' element={<Dashboard/>}/>

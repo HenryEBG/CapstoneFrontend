@@ -18,8 +18,11 @@ export const Navbar= () => {
     return (
     <>
       <NavContainer>
+        <div className='logoContainer' >
         <img className='logo' src="/KRMLogo.jpg" alt="KRM logo" />
         <h2>Refugee<span>Connect</span></h2>
+        </div>
+        {mySession.userLogin ?(
         <div className={`links ${clicked ? 'active' : ''}`}>
           <>
           {mySession.administrator ? (
@@ -33,6 +36,7 @@ export const Navbar= () => {
           <Link className='navbarLink' to="/">Logout</Link>
           </>  
         </div>
+        ) : null}
         <div className='burguer'>
           <BurguerButton clicked={clicked} handleClick={handleClick} />
         </div>
@@ -50,7 +54,7 @@ const NavContainer = styled.nav`
       font-weight: bold;
     }
   }
-  padding: .4rem;
+  padding: 1vh;
   background-color: #faaa44;
   display: flex;
   align-items: center;
@@ -71,14 +75,14 @@ const NavContainer = styled.nav`
     transition: all .5s ease;
     .navbarLink{
       color: black;
-      font-size: 2rem;
+      font-size: 2vh;
       display: block;
     }
     @media(min-width: 768px){
       position: initial;
       margin: 0;
       .navbarLink{
-        font-size: 1rem;
+        font-size: 2vh;
         color: black;
         display: inline;
       }
@@ -91,26 +95,28 @@ const NavContainer = styled.nav`
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    top: 30%;
+    top: 30vh;
     left: 0;
     right: 0;
     text-align: center;
     .navbarLink{
-      font-size: 2rem;
+      font-size: 1rem;
       margin-top: 1rem;
       color: black;
     }
+    height : 5vh;
   }
   .burguer{
     @media(min-width: 768px){
       display: none;
     }
+    
   
   }
 `
 
 const BgDiv = styled.div`
-  background-color: #4dcfe8;
+  background-color: #black;
   position: absolute;
   top: -1000px;
   left: -1000px;
