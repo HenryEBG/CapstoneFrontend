@@ -6,7 +6,9 @@ import {Dashboard} from "./Routes/Dashboard.jsx"
 import { Footer } from './components/Footer.jsx';
 import { Header } from './components/Header.jsx';
 import { Users } from './Routes/Users.jsx';
-
+import { User } from './Routes/User.jsx';
+import { AddUser } from './Routes/AddUser.jsx';
+import { ModifyUser } from './Routes/ModifyUser.jsx';
 function App() {
   // const [count, setCount] = useState(0)
   const userLogin=false;
@@ -24,8 +26,9 @@ function App() {
           <Route path='/login' element={<Login/>} />
           <Route path='/' element={<Dashboard/>} />
           <Route path='/users' element={<Users/>}/>
-          <Route path='/users/add' element={<Dashboard/>} />
-          <Route path='/users/modify' element={<Dashboard/>} />
+          <Route path='/users/:id' element={<User/>}/>
+          <Route path='/users/add' element={<AddUser/>} />
+          <Route path='/users/modify/:id' element={<ModifyUser/>} />
           <Route path='/usertypes' element={<Dashboard/>}/>
           <Route path='/usertypes/add'element={<Dashboard/>}/>
           <Route path='/usertypes/modify' element={<Dashboard/>}/>
