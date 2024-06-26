@@ -28,7 +28,7 @@ export const Navbar= () => {
           {mySession.administrator ? (
           <>
           <Link className='navbarLink' to="/">Manage-Places</Link>
-          <Link className='navbarLink navColor' to="/">Manage-Users</Link>
+          <Link className='navbarLink navColor' to="/users">Manage-Users</Link>
           </>
           ) : null }       
           <Link className='navbarLink' to="/">Places</Link>

@@ -10,21 +10,48 @@ import { Button } from "../components/Button"
 import { createUser } from '../api/user'
 import { useRef,useEffect,useState } from 'react';
 import { useSessionContext } from "../context/SessionProvider"
-import { redirect, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 //import { useProductContext } from '../context/SessionProvider.jsx'
 
-export const modifyUser = () => {
+export const ModifyUser = () => {
 
   const [user,setUser] =useState({});
   const params = useParams();
   const userData = useSessionContext();
+  const navigate=useNavigate();
+
+  const nameRef = useRef();
+  const phoneRef = useRef();
+  const emailRef = useRef();
+  const userTypeRef = useRef();
+  const streetRef = useRef();
+  const cityRef = useRef();
+  const stateRef = useRef();
+  const zipcodeRef = useRef();
+  const countryRef = useRef();
+  const regionRef = useRef();
+  const religionRef = useRef();
+  const genderRef = useRef();
   
   const fetchUser = async()=> {
     await fetch (`${userData.BASE_URL}/users/${[params.id]}`)
     .then((res) => res.json())
     .then((data)=> {
       setUser(data);
+      nameRef.current.value=data.name;
+      phoneRef.current.value=data.phone;
+      emailRef.current.value = data.email;
+      userTypeRef.current.value =data.userType;
+      streetRef.current.value =data.street;
+      cityRef.current.value =data.city;
+      stateRef.current.value =data.state;
+      zipcodeRef.current.value = data.zipcode;
+      countryRef.current.value =data.country;
+      regionRef.current.value = data.region;
+      religionRef.current.value = data.religion;
+      genderRef.current.value =data.gender;
+      console.log(data.religion)
     })
   } 
 
@@ -35,30 +62,17 @@ export const modifyUser = () => {
 
   //const userData = useProductContext();
   
-  const nameRef = useRef(user.name);
-  //const usernameRef = useRef(use);
-  //const passwordRef = useRef(null);
-  const phoneRef = useRef(user.phone);
-  const emailRef = useRef(user.email);
-  const userTypeRef = useRef(user.usertype);
-  const streetRef = useRef(user.street);
-  const cityRef = useRef(user.city);
-  const stateRef = useRef(user.state);
-  const zipcodeRef = useRef(user.zipcode);
-  const countryRef = useRef(user.country);
-  const regionRef = useRef(user.region);
-  const religionRef = useRef(user.religion);
-  const genderRef = useRef(user.gender);
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      console.log(zipcodeRef.current.value)
+      //console.log(zipcodeRef.current.value)
       const body = {
         name: nameRef.current.value,
-        username: usernameRef.current.value,
-        password: passwordRef.current.value,
+        username: user.username,
+        password: user.password,
         phone: phoneRef.current.value,
         email: emailRef.current.value,
         userType: userTypeRef.current.value,
@@ -69,13 +83,14 @@ export const modifyUser = () => {
         country: countryRef.current.value,
         region: regionRef.current.value,
         religion: religionRef.current.value,
-        gender: genderRef.current.value
+        gender: genderRef.current.value,
+        _id:user._id
       };
 
 
-      const response = await fetch(`${userData.BASE_URL}/users/`,
+      const response = await fetch(`${userData.BASE_URL}/users/${user._id}`,
         {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -87,7 +102,7 @@ export const modifyUser = () => {
         return;
       }
       else {
-        return redirect("/users");
+        navigate(`/users`)
       }
 
 
@@ -116,7 +131,7 @@ export const modifyUser = () => {
             {/* <Button buttonColor={"blue"} type="submit" >
           <ion-icon name="save-outline"></ion-icon>
         </Button> */}
-            <input type="submit" style={{ backgroundColor: "blue", color: "white" }} value="Add User" />
+            <input type="submit" style={{ backgroundColor: "blue", color: "white" }} value="Update User" />
           </TableButtons>
 
           <TableRow>
@@ -146,11 +161,11 @@ export const modifyUser = () => {
           <TableRow>
             <TableCell>
               <TableCell align={"right"}>Username:</TableCell>
-              <TableCell><input type="text" placeholder="username" ref={usernameRef} /></TableCell>
+              <TableCell>{user.username}</TableCell>
             </TableCell>
             <TableCell>
-              <TableCell align={"right"}>Password:</TableCell>
-              <TableCell><input type="password" placeholder="password" ref={passwordRef} /></TableCell>
+              <TableCell> </TableCell>
+              <TableCell></TableCell>
             </TableCell>
           </TableRow>
 

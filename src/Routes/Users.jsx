@@ -5,8 +5,9 @@ import { TableRow } from "../components/TableRow"
 import { TableCell } from "../components/TableCell"
 import { TableButtons } from "../components/TableButtons"
 import { Button } from "../components/Button"
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { useSessionContext } from "../context/SessionProvider"
 
 
 export const Users = () => {
@@ -27,18 +28,10 @@ export const Users = () => {
       await fetch (`${userData.BASE_URL}/users/${id}` ,       {
         method: 'DELETE',
         }
-      )
-  
-      if (response.status !== 201) {
-        return;
-      }
-  
-      const deleteUser = await response.json();
-  
-      // Filtering the deleted bookmark from the state array
-      const filtered = users.filter((b) => b._id !== deleteUser._id);
-  
+      ).then((res) => res.json()).then((data)=> {
+      const filtered = users.filter((b) => b._id !== data._id);
       setUsers(filtered);
+         })
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +48,7 @@ export const Users = () => {
       <TableContainer>
         <TableButtons>
         <Button buttonColor={"blue"} >  
-        <ion-icon name="person-add-outline"></ion-icon>
+        <ion-icon name="person-add-outline"  onClick={()=>navigate(`/users/add`)} ></ion-icon>
                 </Button>
         </TableButtons>
         
@@ -65,21 +58,25 @@ export const Users = () => {
             <TableCell align="center">Phone</TableCell>
             <TableCell align="center">Actions</TableCell>
         </TableHeader>
-        {users.map((user) => (
+        {users.length? users.map((user) => (
 
         
-        <TableRow>
+        <TableRow key={user._id}>
         <TableCell align="left">{user.username}</TableCell>
               <TableCell align="left">{user.name}</TableCell>
               <TableCell align="left">{user.phone}</TableCell>
               <TableCell align="right">
                 
-                <Button buttonColor={"green"} ><ion-icon name="eye-outline" onClick={()=>navigate(`/users/modify/${user._id}`)}></ion-icon></Button>
-                <Button buttonColor={"#4dcfe8"} ><ion-icon name="create-outline" onClick={()=>navigate(`/users/${user._id}`)} ></ion-icon></Button>
+                <Button buttonColor={"green"} ><ion-icon name="eye-outline" onClick={()=>navigate(`/users/${user._id}`)}></ion-icon></Button>
+                <Button buttonColor={"#4dcfe8"} ><ion-icon name="create-outline" onClick={()=>navigate(`/users/modify/${user._id}`)} ></ion-icon></Button>
                 <Button buttonColor={"red"} ><ion-icon name="trash-outline" onClick={()=>deleteUser(user._id)}></ion-icon></Button>
               </TableCell>
         </TableRow>
-        ))}
+        )
+      )
+      :
+      <TableRow>Not exists any user</TableRow>
+    }
       </TableContainer>  
 
     </div>

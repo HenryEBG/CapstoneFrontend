@@ -10,11 +10,12 @@ import { Button } from "../components/Button"
 import { createUser } from '../api/user'
 import { useRef } from 'react';
 import { useSessionContext } from "../context/SessionProvider"
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 //import { useProductContext } from '../context/SessionProvider.jsx'
 
 export const AddUser = () => {
-  //const userData = useProductContext();
+  
+  const navigate=useNavigate();
   const userData = useSessionContext();
   const nameRef = useRef(null);
   const usernameRef = useRef(null);
@@ -35,7 +36,7 @@ export const AddUser = () => {
     e.preventDefault();
 
     try {
-      console.log(zipcodeRef.current.value)
+      //console.log(zipcodeRef.current.value)
       const body = {
         name: nameRef.current.value,
         username: usernameRef.current.value,
@@ -68,7 +69,7 @@ export const AddUser = () => {
         return;
       }
       else {
-        return redirect("/users");
+        navigate(`/users`)
       }
 
 
