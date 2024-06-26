@@ -107,7 +107,7 @@ const NavContainer = styled.nav`
     transition: all .5s ease;
     .navbarLink{
       color: black;
-      font-size: 2vh;
+      font-size: 4vw;
       display: block;
     }
     @media(min-width: 768px){

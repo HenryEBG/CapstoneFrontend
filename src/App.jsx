@@ -20,14 +20,18 @@ function App() {
         {/* includ the  Routes router to manage like a switch between the routes*/}
         <Header></Header>
         <Routes>
+          
         
-          <Route path='/login' element={<Login/>} />
-          <Route path='/'  element={<Dashboard/>} />
-          <Route path='/users/:id' element={<User/>} /> 
-          <Route path='/users' element={<Users/>}/>
-          <Route path='/users/add' element={<AddUser/>}/>
-          <Route path='/users/modify/:id' element={<ModifyUser/> }/>
+          <Route path='/login' element={userData.userLogin ?<Dashboard/> : <Login/>} />
+          <Route path='/'  element={userData.userLogin ?<Dashboard/> : <Login/>} />
+
+          <Route path='/users/:id' element={userData.userLogin ? <User/> : <Login/> } /> 
+          <Route path='/users' element={userData.administrator ? <Users/> :userData.userLogin ?<Dashboard/> : <Login/>  }/>
+          <Route path='/users/add' element={userData.administrator ? <AddUser/> :userData.userLogin ?<Dashboard/> : <Login/> }/>
+          <Route path='/users/modify/:id' element={userData.administrator ? <ModifyUser/> :userData.userLogin ?<Dashboard/> : <Login/> }/>
           <Route path='*' element={<Login/>} />
+
+
 
         </Routes>
         <Footer></Footer>
