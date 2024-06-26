@@ -21,6 +21,42 @@ At the same time they can aproach with other refugees but always with the securi
 
 [Deployed Capstone Backend Render Link](https://capstone-backend-3u7b.onrender.com)
 
+# FrontEnd
+## React
+The project is complete in react and I use the next hooks to acomplished my app.
+
+### Router
+To simulate the navigation between pages and give some  security to just let the user login and the type of use have access to the pages.
+
+### useReduce and useContext
+I use those united to have a state can be access for all the pages and have control of the session.
+
+### useRef
+With the forms I use useRef to manipulate the data of the inputs.
+
+### useState
+I use to keep the document when it is created or is modified.
+
+### useEffect 
+To make calls to the API.
+
+- Additionaly I will used in this project dropzone library to drag & drop files.
+- I will consume Google Maps API to get information and make a route to the places.
+
+
+# Backend
+## Mongoose
+To interactuate with the database and create schemas.
+
+## Cors
+To let different server can use de API
+
+## jsonwebtoken
+To create a cookie(token) to now if the user is authenticated. (works but not from the frontend)
+
+## molter
+To save files in the server (this works but not was finished)
+
 
 
 The project use modularity with React. To make a page very responsive for the user.
