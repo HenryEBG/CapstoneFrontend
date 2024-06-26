@@ -23,31 +23,29 @@ function App() {
           {/* defining the routes (just the principals now) */}
           {/* tester variable */}
           
-          <Route path='/login' element={<Login/>} />
-          <Route path='/'  element={<Dashboard/>} />
-          <Route path='/users/:id' element={<User/>}/>
-
-          <Route path='/users' element={<Users/>}/>
-          
-          <Route path='/users/add' element={<AddUser/>} />
-          <Route path='/users/modify/:id' element={<ModifyUser/>} />
-          <Route path='/usertypes' element={<Dashboard/>}/>
-          <Route path='/usertypes/add'element={<Dashboard/>}/>
-          <Route path='/usertypes/modify' element={<Dashboard/>}/>
+          <Route path='/login' element={userData.userLogin  ? <Dashboard/>:<Login/>} />
+          <Route path='/'  element={userData.userLogin  ? <Dashboard/>:<Login/>} />
+          <Route path='/users/:id' element={userData.userLogin? <User/> : <Dashboard/> }/>
+          <Route path='/users' element={userData.administrator ?<Users/>: <Dashboard/> }/>
+          <Route path='/users/add' element={userData.administrator ?<AddUser/>: <Dashboard/> }/>
+          <Route path='/users/modify/:id' element={userData.administrator ?<ModifyUser/>: <Dashboard/> }/>
+          {/* <Route path='/usertypes' element={<Dashboard/>}/> */}
+          {/* <Route path='/usertypes/add'element={<Dashboard/>}/> */}
+          {/* <Route path='/usertypes/modify' element={<Dashboard/>}/> */}
 
           {/* for now i think delete doesn't need a page */}
-          <Route path='/places' element={<Dashboard/>}/>
-          <Route path='/places/add' element={<Dashboard/>}/>
-          <Route path='/places/modify' element={<Dashboard/>}/>
+          {/* <Route path='/places' element={<Dashboard/>}/> */}
+          {/* <Route path='/places/add' element={<Dashboard/>}/> */}
+          {/* <Route path='/places/modify' element={<Dashboard/>}/> */}
           {/* for now i think delete  doesn't need a page */}
-          <Route path='/placetypes' element={<Dashboard/>}/>
-          <Route path='/placetypes/add' element={<Dashboard/>}/>
-          <Route path='/placetypes/modify'element={<Dashboard/>} />
+          {/* <Route path='/placetypes' element={<Dashboard/>}/> */}
+          {/* <Route path='/placetypes/add' element={<Dashboard/>}/> */}
+          {/* <Route path='/placetypes/modify'element={<Dashboard/>} /> */}
           {/* for now i think delete doesn't need a page */}
 
-          <Route path='/places/:id' element={<Dashboard/>}/>
-          <Route path='/friends'element={<Dashboard/>} />
-          <Route path='/friends/:id' element={<Dashboard/>}/>
+          {/* <Route path='/places/:id' element={<Dashboard/>}/> */}
+          {/* <Route path='/friends'element={<Dashboard/>} /> */}
+          {/* <Route path='/friends/:id' element={<Dashboard/>}/> */}
           {/* if the route it is not defined it redirect the user to the login page */}
           <Route path='*' element={<Login/>} />
 
