@@ -11,6 +11,17 @@ Administrators can create new users and all users can add places like markets, c
 At the same time they can aproach with other refugees but always with the security of not share relevant information of their cases.
 
 
+## Technology Used:
+Javascript
+NodeJs
+Express
+Mongoose
+MongoDB
+React
+
+
+
+
 ## Links
 
 [Deployed Capstone Frontend  Netlify Link](https://667bc8eb05f236fc0fb7a2e9--elegant-piroshki-1cb466.netlify.app/) //not working with the deploy API
