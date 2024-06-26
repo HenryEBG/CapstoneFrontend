@@ -9,9 +9,10 @@ import { Users } from './Routes/Users.jsx';
 import { User } from './Routes/User.jsx';
 import { AddUser } from './Routes/AddUser.jsx';
 import { ModifyUser } from './Routes/ModifyUser.jsx';
+import { useSessionContext } from "./context/SessionProvider"
+
 function App() {
-  // const [count, setCount] = useState(0)
-  const userLogin=false;
+  const userData = useSessionContext();
   return (
     <>
       {/* adding de BrowserRouter component to involve all the routes */}
@@ -22,11 +23,12 @@ function App() {
           {/* defining the routes (just the principals now) */}
           {/* tester variable */}
           
-          
           <Route path='/login' element={<Login/>} />
-          <Route path='/' element={<Dashboard/>} />
-          <Route path='/users' element={<Users/>}/>
+          <Route path='/'  element={<Dashboard/>} />
           <Route path='/users/:id' element={<User/>}/>
+
+          <Route path='/users' element={<Users/>}/>
+          
           <Route path='/users/add' element={<AddUser/>} />
           <Route path='/users/modify/:id' element={<ModifyUser/>} />
           <Route path='/usertypes' element={<Dashboard/>}/>

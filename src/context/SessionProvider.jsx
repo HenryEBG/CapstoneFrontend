@@ -17,6 +17,7 @@ const initialState = {
   places: [],//array to save all the places the user has mark with favorites to make a filter
   friends: [],//array with all the friends links to check if can see some info of them
   userType:"Refugee",
+  BASE_URL : 'http://localhost:8500/api',
   administrator:true
 }
 
@@ -43,7 +44,8 @@ const SessionProvider = ({ children }) => {
         places: state.favoritePlaces,
         friends: state.friends,
         userType:state.userType,
-        administrator:state.administrator
+        administrator:state.administrator,
+        BASE_URL:initialState.BASE_URL,
       }}
     >
       {children}

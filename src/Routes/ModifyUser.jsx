@@ -4,106 +4,264 @@ import { TableRow } from "../components/TableRow"
 import { TableCell } from "../components/TableCell"
 import { TableButtons } from "../components/TableButtons"
 import { Button } from "../components/Button"
+// import { useCallback, useState } from "react"
+// import { useDropzone } from 'react-dropzone'
+// import {useForm} from 'react-hook-form'
+import { createUser } from '../api/user'
+import { useRef,useEffect,useState } from 'react';
+import { useSessionContext } from "../context/SessionProvider"
+import { redirect, useParams } from "react-router-dom";
 
-export const ModifyUser = () => {
+//import { useProductContext } from '../context/SessionProvider.jsx'
+
+export const modifyUser = () => {
+
+  const [user,setUser] =useState({});
+  const params = useParams();
+  const userData = useSessionContext();
+  
+  const fetchUser = async()=> {
+    await fetch (`${userData.BASE_URL}/users/${[params.id]}`)
+    .then((res) => res.json())
+    .then((data)=> {
+      setUser(data);
+    })
+  } 
+
+  useEffect(() => {
+    fetchUser();
+
+  },[]);
+
+  //const userData = useProductContext();
+  
+  const nameRef = useRef(user.name);
+  //const usernameRef = useRef(use);
+  //const passwordRef = useRef(null);
+  const phoneRef = useRef(user.phone);
+  const emailRef = useRef(user.email);
+  const userTypeRef = useRef(user.usertype);
+  const streetRef = useRef(user.street);
+  const cityRef = useRef(user.city);
+  const stateRef = useRef(user.state);
+  const zipcodeRef = useRef(user.zipcode);
+  const countryRef = useRef(user.country);
+  const regionRef = useRef(user.region);
+  const religionRef = useRef(user.religion);
+  const genderRef = useRef(user.gender);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log(zipcodeRef.current.value)
+      const body = {
+        name: nameRef.current.value,
+        username: usernameRef.current.value,
+        password: passwordRef.current.value,
+        phone: phoneRef.current.value,
+        email: emailRef.current.value,
+        userType: userTypeRef.current.value,
+        street: streetRef.current.value,
+        city: cityRef.current.value,
+        state: stateRef.current.value,
+        zipcode: zipcodeRef.current.value,
+        country: countryRef.current.value,
+        region: regionRef.current.value,
+        religion: religionRef.current.value,
+        gender: genderRef.current.value
+      };
+
+
+      const response = await fetch(`${userData.BASE_URL}/users/`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        }
+      )
+
+      if (response.status !== 201) {
+        return;
+      }
+      else {
+        return redirect("/users");
+      }
+
+
+      // nameRef.current.value="";
+      // usernameRef.current.value="";
+      // phoneRef.current.value="";
+      // passwordRef.value="";
+      // cityRef.value="";
+      // streetRef.value="";
+      // emailRef.value="";
+      // zipcodeRef.value="";
+
+    } catch (error) {
+
+    }
+
+
+  }
+
   return (
-    <form action="" className="formFormat">
-    <div className="principalContainer">
-      <TitlePage title="Modify a User"></TitlePage>
-      <TableContainer>
-      <TableButtons>
-      <Button buttonColor={"#f04f3d"} ><ion-icon name="create-outline"></ion-icon></Button>
-        </TableButtons>
-        <TableRow> 
-          <TableCell>
-            <div>
-            <div className="labelFormat">Username:</div>
-            <div className="inputFormat"><input type="text"placeholder="username" /></div>
-            </div>
-            <div>
-            <div className="labelFormat">Password:</div>
-            <div className="inputFormat"><input type="password"  placeholder="password"/></div>
-              
-            </div>
+    <form onSubmit={handleSubmit} className="formFormat">
+      <div className="principalContainer">
+        <TitlePage title="Modify User"></TitlePage>
+        <TableContainer>
+          <TableButtons>
+            {/* <Button buttonColor={"blue"} type="submit" >
+          <ion-icon name="save-outline"></ion-icon>
+        </Button> */}
+            <input type="submit" style={{ backgroundColor: "blue", color: "white" }} value="Add User" />
+          </TableButtons>
 
-          </TableCell>
+          <TableRow>
+            <TableCell align={"center"}>
 
-          <TableCell align={"center"}>
-            <div className="inputPhoto" ><img src="/KRMLogo.jpg" alt="photo of the user" style={{width:"20vh"}} /></div>
-          </TableCell>
+            </TableCell>
+          </TableRow>
 
-        </TableRow> 
-        <TableRow>
-          <TableCell>
-            <div className="labelFormat">Name:</div>
-            <div className="inputFormat"><input type="text" /></div>
+          <TableRow>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
 
-          </TableCell>
-          <TableCell>
-              <div className="labelFormat">Email:</div>
-              <div className="inputFormat"><input type="email" /></div>
-          </TableCell>
-        </TableRow>
+            <TableCell>
+              <TableCell align={"right"}>User Type:</TableCell>
+              <TableCell><select ref={userTypeRef}>
+                <option value="Administrator">Administrator</option>
+                <option value="Refugee">Refugee</option>
+                <option value="Volunteer">Volunteer</option>
 
-        <TableRow>
-          <TableCell>
-            <div className="labelFormat">Phone:</div>
-            <div className="inputFormat"><input type="text" /></div>
 
-          </TableCell>
-          <TableCell>
-              <div className="labelFormat">Adress:</div>
-              <div className="inputFormat"><div>Street: <input type="text" /></div> <div>City : <input type="text" /> State: <input type="text" /></div> <div>ZipCode: <input type="number" /></div>  </div>
-          </TableCell>
-        </TableRow>
+              </select>
+              </TableCell>
+            </TableCell>
 
-         <TableRow>
-          <TableCell>
-            <div className="labelFormat">Country:</div>
-            <div className="inputFormat"><input type="text" /></div>
+          </TableRow>
 
-          </TableCell>
-          <TableCell>
-              <div className="labelFormat">Region:</div>
-              <div className="inputFormat">
-                <select>
-                <option value="1">East Asia</option>
-                <option value="2">East Europe</option>
-                </select></div>
-          </TableCell>
+          <TableRow>
+            <TableCell>
+              <TableCell align={"right"}>Username:</TableCell>
+              <TableCell><input type="text" placeholder="username" ref={usernameRef} /></TableCell>
+            </TableCell>
+            <TableCell>
+              <TableCell align={"right"}>Password:</TableCell>
+              <TableCell><input type="password" placeholder="password" ref={passwordRef} /></TableCell>
+            </TableCell>
+          </TableRow>
 
-          <TableCell>
-              <div className="labelFormat">Religion:</div>
-              <div className="inputFormat">
-                <select >
-                    <option value="1">Christianity</option>
-                    <option value="2">Judaism</option>
-                    <option value="3">Islam</option>
-                    <option value="4">Buddism</option>
-                    <option value="5">Induism</option>
-                    <option value="6">Mormonism</option>
-                    <option value="7">Other religion</option>
-                    <option value="8">No answer</option>
-                  </select></div>
-          </TableCell>
-          <TableCell>
-              <div className="labelFormat">Gender:</div>
-              <div className="inputFormat">
-                <select name="" id="">
-                  <option value="F">Female</option>
-                  <option value="F">Male</option>
-                  <option value="F">Other</option>
-                  <option value="F">Not Answer</option>
-                </select></div>
-          </TableCell>
+          <TableRow>
+            <TableCell>
+              <TableCell align={"right"}>Phone:</TableCell>
+              <TableCell><input type="text" placeholder="phone" ref={phoneRef} /></TableCell>
+            </TableCell>
 
-        </TableRow>    
-        <TableButtons><div style={{height:"40px"}}></div>
-      
-        </TableButtons>
-        
-      </TableContainer>
-    </div>
+            <TableCell>
+              <TableCell align={"right"}>Email:</TableCell>
+              <TableCell><input type="email" placeholder="email" ref={emailRef} /></TableCell>
+            </TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>
+              <TableCell align={"right"}>Name:</TableCell>
+              <TableCell><input type="text" placeholder="fullname" ref={nameRef} /></TableCell>
+            </TableCell>
+
+             <TableCell>
+              <TableCell align={"right"}></TableCell>
+              <TableCell></TableCell>
+            </TableCell>           
+          </TableRow>
+
+          <TableRow>
+            <TableCell align={"center"}>Adress</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <TableCell align={"right"}>Street:</TableCell>
+              <TableCell><input type="text" placeholder="Street" ref={streetRef} /></TableCell>
+            </TableCell>
+
+            <TableCell>
+              <TableCell align={"right"}>City:</TableCell>
+              <TableCell><input type="text" placeholder="City" ref={cityRef} /></TableCell>
+            </TableCell>
+            </TableRow>
+            <TableRow>           
+            <TableCell>
+              <TableCell align={"right"}>State:</TableCell>
+              <TableCell><input type="text" placeholder="State" ref={stateRef} /></TableCell>
+            </TableCell>
+
+            <TableCell>
+              <TableCell align={"right"}>Zipcode:</TableCell>
+              <TableCell><input type="text" placeholder="zipcode" ref={zipcodeRef} /></TableCell>
+            </TableCell>
+          </TableRow>
+
+
+          <TableRow>
+            <TableCell align={"center"}>Society Segment</TableCell>
+          </TableRow>
+
+          <TableRow>
+            <TableCell>
+              <TableCell align={"right"}>Country:</TableCell>
+              <TableCell><input type="text" placeholder="Country" ref={countryRef} /></TableCell>
+            </TableCell>
+
+            <TableCell>
+              <TableCell align={"right"}>Region:</TableCell>
+              <TableCell>
+                <select ref={regionRef}>
+                  <option value="East Asia">East Asia</option>
+                  <option value="East Europe">East Europe</option>
+                  <option value="Latin America">Latin America</option>
+                  <option value="Africa">Africa</option>
+                </select>
+              </TableCell>
+            </TableCell>
+            </TableRow>
+
+
+<TableRow>
+
+            <TableCell>
+              <TableCell align={"right"}>Religion:</TableCell>
+              <TableCell><select ref={religionRef}>
+                <option value="Christianity">Christianity</option>
+                <option value="Judaism">Judaism</option>
+                <option value="Islam">Islam</option>
+                <option value="Buddism">Buddism</option>
+                <option value="Induism">Induism</option>
+                <option value="Mormonism">Mormonism</option>
+                <option value="Other religion">Other religion</option>
+                <option value="No answer">No answer</option>
+
+              </select>
+              </TableCell>
+            </TableCell>
+
+            <TableCell>
+              <TableCell align={"right"}>Gender::</TableCell>
+              <TableCell> <select ref={genderRef}>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+                <option value="Not Answer">Not Answer</option>
+              </select>
+              </TableCell>
+            </TableCell>
+          </TableRow>
+
+          <TableButtons><div style={{ height: "40px" }}></div></TableButtons>
+        </TableContainer>
+      </div>
     </form>
   )
 }
