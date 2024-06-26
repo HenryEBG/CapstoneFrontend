@@ -16,7 +16,7 @@ const initialState = {
   // places: [],//array to save all the places the user has mark with favorites to make a filter
   // friends: [],//array with all the friends links to check if can see some info of them
   // userType:"Refugee",
-  BASE_URL : 'http://localhost:8500/api',
+  BASE_URL : 'https://capstone-backend-3u7b.onrender.com:10000/api',
   administrator:false
 }
 
