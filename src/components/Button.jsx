@@ -1,4 +1,5 @@
 
+// component to add a button in the pages
 export const Button =({buttonColor, children }) => {
   return (
     

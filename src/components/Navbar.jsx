@@ -1,8 +1,10 @@
+// create a dinamic navbar
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import BurguerButton from './BurguerButton'
 
 import { useSessionContext } from '../context/SessionProvider.jsx'
+import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 export const Navbar= () => {
@@ -12,8 +14,40 @@ export const Navbar= () => {
     setClicked(!clicked)
   }
 
-  const mySession=useSessionContext();
+  const navigate =useNavigate();
+  const userData=useSessionContext();
   
+  const handleLogout = async (event) => {
+    event.preventDefault();
+
+    //crear el cuerpo
+    const body= {
+      //username:usernameInputRef.current.value,
+      //password:passwordInputRef.current.value
+    }
+    console.log(body)
+
+    //hacer la llamada a la api
+    await fetch(`${userData.BASE_URL}/users/logout`
+    // , {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(body),
+    //     }
+      )
+      .then((res)=>res.json()
+    )
+      .then((data)=> { 
+        // console.log(data);
+        userData.dispatch({type:"LOGOUT"})
+        navigate("/login")
+       // console.log(res)
+
+
+       })
+  }
 
     return (
     <>
@@ -22,21 +56,19 @@ export const Navbar= () => {
         <img className='logo' src="/KRMLogo.jpg" alt="KRM logo" />
         <h2>Refugee<span>Connect</span></h2>
         </div>
-        {mySession.userLogin ?(
+      
         <div className={`links ${clicked ? 'active' : ''}`}>
-          <>
-          {mySession.administrator ? (
-          <>
-          <Link className='navbarLink' to="/">Manage-Places</Link>
-          <Link className='navbarLink navColor' to="/users">Manage-Users</Link>
-          </>
-          ) : null }       
-          <Link className='navbarLink' to="/">Places</Link>
-          <Link className='navbarLink' to="/">Refugees</Link>
-          <Link className='navbarLink' to="/">Logout</Link>
-          </>  
+            {userData.administrator ?(
+              <>
+              <Link className='navbarLink' to="/">Manage-Places</Link>
+              <Link className='navbarLink navColor' to="/users">Manage-Users</Link>
+              </>
+              ):null}
+            
+            {userData.userLogin ?(
+              <Link className='navbarLink' to="/" onClick={handleLogout}>Logout</Link>
+            ):null}
         </div>
-        ) : null}
         <div className='burguer'>
           <BurguerButton clicked={clicked} handleClick={handleClick} />
         </div>

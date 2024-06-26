@@ -11,13 +11,13 @@ const useSessionContext = () => {
 
 //create the initial state of the context hook
 const initialState = {
-  userLogin: true,//flag that let me know if the user is login or not, maybe could be substitute with localstorage
+  userLogin: false,//flag that let me know if the user is login or not, maybe could be substitute with localstorage
   user: null,
   // places: [],//array to save all the places the user has mark with favorites to make a filter
   // friends: [],//array with all the friends links to check if can see some info of them
   // userType:"Refugee",
   BASE_URL : 'http://localhost:8500/api',
-  administrator:true
+  administrator:false
 }
 
 //reducer function to get an action and realize some procedures
@@ -27,9 +27,16 @@ const sessionReducer = (state, action) => {
       case 'LOGIN':
         state.userLogin = true;
         state.user=action.value;
-        if(action.value.userType=="Administrator") {state.administrator=true} else {false}
+        if(action.value.userType==="Administrator") {state.administrator=true} else {false}
         console.log(state)
         return {...state};
+      case 'LOGOUT':
+        state.userLogin=false;
+        state.administrator=false;
+        state.user={};
+        console.log(state)
+        return {...state};
+
      default:
      { return state;}
       

@@ -1,3 +1,5 @@
+// page to add a user any type
+
 import { TitlePage } from "../components/TitlePage"
 import { TableContainer } from "../components/TableContainer"
 import { TableRow } from "../components/TableRow"
@@ -7,7 +9,7 @@ import { Button } from "../components/Button"
 // import { useCallback, useState } from "react"
 // import { useDropzone } from 'react-dropzone'
 // import {useForm} from 'react-hook-form'
-import { createUser } from '../api/user'
+//import { createUser } from '../api/user'
 import { useRef } from 'react';
 import { useSessionContext } from "../context/SessionProvider"
 import { useNavigate } from "react-router-dom";

@@ -1,3 +1,5 @@
+// create a table to manage all the users add, delete, modify or add new users
+
 import { TitlePage } from "../components/TitlePage"
 import { TableContainer } from "../components/TableContainer"
 import { TableHeader } from "../components/TableHeader"
